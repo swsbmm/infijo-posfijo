@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+<body>
+    <div>
+        <label for="input">Calcular: <input type="text" id="input"></label>
+        <input type="submit" id="calcular" name="Resolver">
+    </div>
+    <div id="resultado">
+
+    </div>
+
+    <script  src="./Estructuras.js"></script>
+    <script  src="./Script.js"></script>
+    <script>
+        let evento = document.getElementById('calcular')
+        evento.addEventListener('click', (e) => {
+            e.preventDefault()
+            data = document.getElementById('input')
+            let result = calcular(data.value)
+            document.getElementById("resultado").innerHTML = "<h1 align='left'>Posfijo: "+result.posfijo+"<br>Resultado: "+result.resultado+"</h1>";
+        })
+    </script>
+
+</body>
+</html>
