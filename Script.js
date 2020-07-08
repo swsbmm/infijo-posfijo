@@ -1,6 +1,8 @@
 function calcular(infija) {
     let posfija = infAPosPlus(infija)
-    let resultado = evaluarPlus(posfija)
+    let resultado = evaluarPlus(infAPosPlus(infija))
+    let resultado1 = evaluar(posfija.getInfo())
+    console.log(`resultado1: ${resultado1}`)
     console.log(resultado)
     if(isNaN(resultado)){
         resultado = 'Faltan datos'
@@ -13,7 +15,7 @@ function calcular(infija) {
         resultado
     }
     let prueba = "."
-    console.log(`el hascode de ${prueba} es  ${prueba.hashCode()}`)
+    // console.log(`el hascode de ${prueba} es  ${prueba.hashCode()}`)
     console.log('Posfija: ', posfija.getInfo())
     console.log('Resultado: ', resultado)
     return data
@@ -32,12 +34,7 @@ function infAPosPlus(infija) {
     for (let j = 0; j < infija.length; j++) { //se recorre la cadena string que ingresa el usuario
         let letraUnic = infija[j];  // se guarda en esta variable cada char del string
         if (letraUnic.hashCode() >= 48 && letraUnic.hashCode() <= 57 || letraUnic.hashCode() == 46) {
-            if(letraUnic.hashCode() == 46 && agregarPunto){
-                 letra = letra.concat(letraUnic)
-                agregarPunto = false
-            }else if(letraUnic.hashCode() >= 48 && letraUnic.hashCode() <= 57){
-                letra = letra.concat(letraUnic);
-            }
+            letra = letra.concat(letraUnic);
 
                 //con esta comparacion se sabe si es un numero de 0 a 9
              // si es un numero entonces a letra le concatenamos lo que tenga letra, asi se puede juntar numero de mas de 2 dijitos
@@ -60,12 +57,15 @@ function infAPosPlus(infija) {
     while(i<list.size()){
         let caracter = list.get(i).info
         if(!esOperador(caracter)){
-            console.log("QUE HACEN PERRAS")
-            posfija.add(caracter)
+            if(caracter !== ''){
+                console.log('HOLAAAAAAA MUNDO')
+                posfija.add(caracter)
+            }
+            // posfija.add(caracter)
            
         }else{
             try {
-                console.log(`prioeridad entre ${caracter} Y ${pila.cabeza().info}`)    
+                // console.log(`prioeridad entre ${caracter} Y ${pila.cabeza().info}`)    
             } catch (error) {
                 
             }
@@ -179,24 +179,24 @@ function infAPos(infija) {
 
 
 function evaluarPlus(posfija) {
-    console.log('LLAMANDO FUNCION')
-    let pila = new Pila() // creammos una pila
-    pila.initPm() // la setiamos en null
-    for (var i = 0; i < posfija.size(); i++) { //recorremos la lista simple de posfija
-        let caracter = posfija.get(i).info // guardamos en caracter los elementos de posfija
-        // console.log(caracter)
-        if (!esOperador(caracter)) { //si el caracter es diferente de un operador
-            let num = parseFloat(caracter) //convertimos el numero a un float 
-            pila.insPm(num) // lo agregamos a la pila
-        } else { // si el caracter es un operador entonces buscaremos los numeros para operarlos
-            let num2 = pila.retiraPm(); // sacamos el numero 2 de la pila
-            let num1 = pila.retiraPm(); // sacamos el numero 1 de la pila
-            let num3 = operacion(caracter, num1, num2) //aplicamos la operacion que hemos encontrado
-            pila.insPm(num3) // agregamos el resultado a la pila
+    let pila = new Pila() 
+    pila.initPm() 
+    for (var i = 0; i < posfija.size(); i++) {
+         
+        let caracter = posfija.get(i).info
+        console.log(`caracter: ${caracter}`)
+        if (!esOperador(caracter)) {
+            let num = parseFloat(caracter)
+            pila.insPm(num) 
+        } else {
+            let num2 = pila.retiraPm(); 
+            let num1 = pila.retiraPm(); 
+            let num3 = operacion(caracter, num1, num2) 
+            pila.insPm(num3) 
 
             console.log(`${num1}  ${caracter}  ${num2} = ${num3}`)
         }
-    }// se repite el proceso, al final el resultado queda en la cabeza de la pila 
+    }
     
     return pila.cabeza().info
 }

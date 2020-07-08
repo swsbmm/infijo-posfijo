@@ -94,12 +94,16 @@ class Lista{
         let q = this.cab
         let l = ""
         while(q !== null){
-            l = l.concat(q.info+ "  ")
+            l = l.concat(q.info)
             q = q.sig
         }
         return l
     }
+
+    
 }
+
+
 
 
 class Cola{
